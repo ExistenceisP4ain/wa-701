@@ -13,11 +13,11 @@ export default {
  let result;
     try {
         let doc = {
-        username: userData.username,
+        username: userData.email,
         // lozinku ćemo hashirati pomoću bcrypta
         password: await bcrypt.hash(userData.password, 8),
-        name: userData.name,
-        tip: userData.tip
+        tipProfila: userData.tipProfila,
+        datumregistracije:userData.datumreg
         };
     result = await db.collection('users').insertOne(doc);
         } catch (e) {
@@ -45,7 +45,7 @@ async authenticateUser(username, password) {
     return {
         token,
         username: user.username,
-        tip:user.tip
+        tipProfila: user.tipProfila
     };
         } else {
             throw new Error('Cannot authenticate');
