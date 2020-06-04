@@ -63,6 +63,8 @@
 
 <script>
 import store from '../store';
+import {Auth} from '@/services';
+
 export default {
     data() {
         return {
@@ -76,7 +78,7 @@ export default {
     },
     mounted() {},
     methods: {
-        signup() {
+        /*signup() {
             firebase
                 .auth()
                 .createUserWithEmailAndPassword(this.email, this.password)
@@ -100,7 +102,27 @@ export default {
                     console.error(error);
                     this.errorMessage = error.message;
                 });
-        }
+        }*/
+        async signup() {
+      
+      if (
+        this.password !== this.password2 ||
+        this.password2 !== this.password
+      ) {
+        alert("Lozinke se ne podudaraju!");
+        console.log(error);
+      }
+  let a={
+      tipProfila:this.odabraniTipProfila,
+      password:this.password,
+      email:this.email,
+      datumreg:Date.now()
+  }
+ await Auth.signup(a).then(()=>{
+   this.$router.push({name: 'login'}) 
+ })
+
+    }
     }
 };
 </script>

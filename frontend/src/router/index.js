@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Posts from '../views/Posts.vue'
+import {Auth} from '@/services'
 
 Vue.use(VueRouter)
 
@@ -49,7 +50,6 @@ const router = new VueRouter({
 // izvrši prije svake rute
 router.beforeEach((to, from, next) => {
     // redirect to login page if not logged in and trying to access a restricted
-  page
       const publicPages = ["/login", "/signup"];
       const authRequired = !publicPages.includes(to.path);
       const user = Auth.getUser();

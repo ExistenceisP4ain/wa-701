@@ -1,4 +1,5 @@
 import axios from 'axios';
+import store from "@/store"
 import $router from '@/router'; // ovako importamo router izvan VUE componente
 
 // instanca axios-a za potrebe Fipugram backenda
@@ -36,10 +37,11 @@ let Auth = {
     // primamo user/pass, šaljemo upit na backend i ako dobijemo token
     // spremimao ga u "localStorage" - JavaScript memoriju koja OSTAJE
     // i nakon što zatvorimo preglednik ili osvježimo stranicu
-    async login(username, password) {
+    async login(username, password, tipProfila) {
     let response = await Service.post('/auth', {
     username,
     password,
+    tipProfila
     });
     let user = response.data;
     // localStorage može sačuvati samo string, boolean ili number
@@ -50,6 +52,9 @@ let Auth = {
     logout() {
     localStorage.removeItem('user');
     },
+    async signup(a) {
+        return Service.post('/user', a);
+},
     // dohvat tokena
     getToken() {
     let user = Auth.getUser();
@@ -61,10 +66,11 @@ let Auth = {
     getUser() {
     return JSON.parse(localStorage.getItem('user'));
     },
-    // provjera jesmo li autentificirani
+    // provjera jesmo li autentificiraregisterUserni
     authenticated() {
     let user = Auth.getUser();
     if (user && user.username) {
+        store.tipProfila = user.tipProfila
     return true;
     }
     return false;

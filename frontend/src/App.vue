@@ -23,21 +23,21 @@
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <form class="form-inline my-2 my-lg-0 mr-auto ml-5">
                                     <input
-                                        v-model="searchTerm"
+                                        v-model="store.searchTerm"
                                         class="form-control mr-sm-2"
                                         type="search"
                                         placeholder="Pretraga..."
                                         aria-label="Search"
                                     />
                                 </form>
-                                <router-link v-if="!authenticated" class="btn btn-info my-2 my-sm-0 mr-2" to="/login">
+                                <router-link v-if="!auth.authenticated" class="btn btn-info my-2 my-sm-0 mr-2" to="/login">
                                     Login
                                 </router-link>
-                                <span v-if="authenticated">
+                                <span v-if="auth.authenticated">
                                     <a @click="logout" class="btn btn-info my-2 my-sm-0 mr-2" href="#">Logout</a>
                                 </span>
                                 <router-link
-                                    v-if="!authenticated"
+                                    v-if="!auth.authenticated"
                                     class="btn btn-outline my-2 my-sm-0 mr-2"
                                     to="/signup"
                                 >
